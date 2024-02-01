@@ -1,0 +1,75 @@
+# Workshop Day 2- Some alternatives to dplyr!
+
+# I learned R primarily using basic R. As such, I rarely use dplyr for data cleaning and descriptives.
+# This is possibly a bad thing- I do think dplyr is better!
+# In any case, here is some of the dplyr code run in Workshop 2, but in basic R so you have an alternative if you wish for one
+
+## Loading in Iris:
+
+library(datasets)
+data(iris)
+
+# Let's first see if the variables are the right format:
+summary(iris)
+
+# Okay, all looks good. Now let's grab the mean and standard deviation of Sepal Length:
+mean(iris$Sepal.Length)
+sd(iris$Sepal.Length)
+
+# We can group sepal length by species as follows:
+mean(iris$Sepal.Length[iris$Species=="setosa"]) # the square brackets are used to index the dataset or variable
+sd(iris$Sepal.Length[iris$Species=="setosa"])
+## Repeat for all species categories
+
+## This approach may not be practical for you- dplyr gives you all the information in a handy output table for each group at once.
+## I use this method mostly with the summary() function for categorical predictors and outcomes because I get the frequency and number of missing.
+summary(iris$Species)
+
+# To group the above by another categorical variable:
+summary(iris$Species[iris$other_categorical=="flowerstuff"])
+
+## Note that you can use other keys than "==" which simply translates to "equal to"; e.g. <=, >=, != (which means not equal to)
+
+# Another package that is helpful for getting mean, sd, se, and other information for numeric variables by group is psych. Let's load that in:
+install.packages("psych")
+library(psych)
+
+# The function you'll want to call is describe.by()
+describe.by(iris$Sepal.Length, group= iris$Species)
+
+# Your output generates all the information you need in a handy table!
+
+## Next we talked about the filter, select, and mutate functions in dplyr.
+## Let me translate these into basic R:
+
+# If you want to retain rows where Petal length is over 3.758:
+iris2 <-  subset(iris, Petal.Length>=3.758)
+head(iris2)
+
+# If you want to keep only some columns:
+iris3 <- iris[,c("Sepal.Length","Sepal.Width","Species")] 
+
+## The above code translates to:
+## Assign to iris3 the following: index iris based on the following column names: Sepal.Length, Sepal.Width, Species
+
+# The above may not be practical if you just want to remove 1 column, or if you have a million columns. Instead, you might want to drop columns:
+iris4 <- iris[,!(names(iris) %in% c("Petal.Length","Petal.Width"))]
+head(iris4)
+
+## The above code briefly translates to:
+## Assign to iris4 the following: index iris based on columns; remove column names that include (%in%) Petal.Length and Petal.Width
+
+# Finally, to add a column to the dataset based on a certain formula:
+iris5 <- iris
+iris5$Petal.Sum <- with(iris5, Petal.Length+Petal.Width)
+head(iris5)
+
+## Additional tips:
+### Note that I copied any changes I made to a new dataset (iris2,iris3,iris4,iris5). Doing so is important, as if you make a mistake, you can always go back to the original dataset
+### When unsure about coding, I recommend to create a test dataset called "test" or something like that where you can try out manipulations first
+
+
+
+
+
+
