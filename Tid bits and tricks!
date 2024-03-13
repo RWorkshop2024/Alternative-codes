@@ -54,7 +54,7 @@ Working with dates---
   Dates can be tricky in R. Before you can do manipulation, the first step is to make sure that the date variable is formatted correctly.
   R will have a default order that it likes its dates in- you will see this order when you look at the date variable via View(data)
   Let's say R likes its dates formatted like: Day-Month-Year. Here is how we can make sure our date is actually formatted correctly:
-    data$variable_date <- format(data$variable_date, "%d-%m-%Y")
+    data$variable_date <- as.Date(data$variable_date, format=c("%d-%m-%Y"))
   A quick google will give you details on formatting dates in R :)
 
 Error in formatting a variable---
