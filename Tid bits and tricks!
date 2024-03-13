@@ -1,0 +1,77 @@
+## Welcome to the tid bits and tricks file where I include... well tid bits and tricks ##
+
+1. R Hot keys
+  Hot keys are a nice way of speeding up your coding process
+  There are a whole host of keys: https://support.posit.co/hc/en-us/articles/200711853-Keyboard-Shortcuts-in-the-RStudio-IDE
+  below I only include the ones that you will probably use the most.
+  Note that use Command instead of Control for Mac's
+
+HoT KeYz:
+  Alt + - to make the <- symbol
+  Crtl + Shift + M to make the %>% symbol (for piping)
+  Crtl + Enter will run your code line
+  Crtl + D will delete your code line
+  Crtl + Shift + Left or Right arrow to select a word (use Option instead of Control for Macs)
+
+2. Find and Replace
+  An excellent tool if you want to copy code you've previously used but don't want to hand type each dataset or variable name
+
+3. Console doesn't save D:<
+  R Console *will not save*. One trick is you can paste your console output to a text document either via Notepad, or open one up in R:
+  - Click on the new file icon (the one you click on to open a new script)
+  - Select Text File as one of the options
+  For descriptive tables, don't hand calculate your percentages! Drop the needed numbers into excel and go from there!
+
+4. Specific codes that might be useful
+  Here are some small bits of code that might help you out for specific scenarios. I'll likely add to this list as we come up against some issues.
+
+Reseting rownames---
+  It might happen that you will remove subjects from your dataframe (removing test subjects for example). When you do this, the row numbers
+  (as seen when you look at View(dataframe_name)) will be missing numbers. For example, you want to remove subjects in row 3 and 5. When
+  you do so, this is what happens:
+  1  bark
+  2  quack
+  4  moo
+  6  meow
+  Oops- this is no good- if you index later on, you will run into problems. We would like it to look like:
+  1  bark
+  2  quack
+  3  moo
+  4  meow
+  Use the following code to refresh the row numbers:
+  rownames(dataframe_name) <- NULL
+
+Quickly converting values into NA---
+  Sometimes you have data where NA is given a specific code like -99, -97, -98 or whatever it is. While maybe helpful in SPSS, this is less useful in R
+  We want these values to be registered as NA in R. To do so, here is one approach:
+    data$variable[data$variable=="-97"] <- NA
+    data$variable[data$variable=="-98"] <- NA
+    data$variable[data$variable=="-99"] <- NA
+  There are multiple ways of doing this, but this is one way. If your variable is numeric, a fast way of getting the job done:
+    data$variable[data$variable < 0] <- NA
+
+Working with dates---
+  Dates can be tricky in R. Before you can do manipulation, the first step is to make sure that the date variable is formatted correctly.
+  R will have a default order that it likes its dates in- you will see this order when you look at the date variable via View(data)
+  Let's say R likes its dates formatted like: Day-Month-Year. Here is how we can make sure our date is actually formatted correctly:
+    data$variable_date <- format(data$variable_date, "%d-%m-%Y")
+  A quick google will give you details on formatting dates in R :)
+
+Error in formatting a variable---
+  Made a formatting error? Convert the variable to a character, and R should let go of any formatting you made.
+    data$variable <- as.character(data$variable)
+  If this doesn't work... sorry to say, you will have to reload the dataset and start again. (This is why I recommend doing initial trials on a test copy
+  to make sure whatever you are trying out works!)
+
+
+
+
+
+
+
+
+
+
+
+  
+  
