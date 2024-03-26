@@ -81,6 +81,28 @@ Alternatively, you can make this into one line using an operator:
   dataset$new_variable <- ifelse(dataset$group==3 | dataset$group2==5, 'chicken', 'not chicken')
 
 
+Dropping levels ---
+  We wish to subset our dataset by a particular set of values from a variable. For example, we wish to subset dataset "menu" such that only certain food groups are there. Here is what menu$food looks like:
+    summary(menu$food)
+    Eggs Milk Cheese Ice cream Chicken Pork Beef Legumes
+      5    10     11        30      10    8    4      20
+  Okay, now let's subset such that only dairy is there. I'll do this using indexing:
+    menu_dairy <- menu[menu$food %in% c("Milk","Cheese","Ice cream"),] # %in% is R speak for "include"
+  Let's take a look at this new subset:
+    summary(menu_dairy$food)
+    Eggs Milk Cheese Ice cream Chicken Pork Beef Legumes
+      0    10     11        30       0    0    0       0
+  Wait a dang minute... why are the non-dairy categories still there?? Well, you need to drop the levels from the variable. Let's do that:
+    menu_dairy$food <- droplevels(menu_dairy$food) # droplevels is a function available in base R. YAY!
+  Okay now let's see what this look like:
+    summary(menu_dairy$food)
+    Milk Cheese Ice cream 
+      10     11        30 
+  All clean!
+
+
+
+
 
 
 
