@@ -22,7 +22,12 @@ HoT KeYz:
   - Select Text File as one of the options
   For descriptive tables, don't hand calculate your percentages! Drop the needed numbers into excel and go from there!
 
-4. Specific codes that might be useful
+4. R operators 
+== : equal to
+| : or
+!= : not
+
+5. Specific codes that might be useful
   Here are some small bits of code that might help you out for specific scenarios. I'll likely add to this list as we come up against some issues.
 
 Reseting rownames---
@@ -63,7 +68,17 @@ Error in formatting a variable---
   If this doesn't work... sorry to say, you will have to reload the dataset and start again. (This is why I recommend doing initial trials on a test copy
   to make sure whatever you are trying out works!)
 
-
+Nesting ifelse() statement ---
+  Want to create a variable based on a certain condition? What if there are multiple conditions that need to be met? Here's how to next your ifelse() statements:
+    dataset$new_variable = NA # this creates a new column in our dataset that we are then going to fill up
+  The structure of an ifelse() statement is: ifelse(condition, value you want when condition is met, value when condition is not met)
+So let's fill up new_variable:
+  dataset$new_variable <- ifelse(dataset$group==3, 'chicken', 'not chicken')
+Let's say we new_variable becomes chicken if the group is 3 and group 2 is 5:
+  dataset$new_variable <- ifelse(dataset$group==3, 'chicken', 
+                            ifelse(dataset$group2==5, 'chicken','not chicken')
+Alternatively, you can make this into one line using an operator:
+  dataset$new_variable <- ifelse(dataset$group==3 | dataset$group2==5, 'chicken', 'not chicken')
 
 
 
