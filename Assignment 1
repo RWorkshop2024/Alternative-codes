@@ -1,0 +1,173 @@
+# Welcome to the first assignment! Wow
+# The objective of this assignment is to teach you some new things that may come in handy and also test the knowledge you gained from the workshops so far.
+
+## What you will do:
+### 1. Create variables
+### 2. Merge these variables as a dataset
+### 3. Format variables
+### 4. Describe the dataset
+### 5. Visualize the variables
+### 6. Interpret the summary
+
+# At the end, there are bonus questions for your own reflection. 
+
+## Let's begin! ##
+
+## You are an analyst hired to deal with some data from a cross-sectional study. 
+## The objective of this study was to determine whether or not depression is associated with smoking. 
+## Alas, this data was collected by hand (booo) and you must enter it into R. 
+## 20 people participated and we will assume there is no missing data. Participants were sampled such that you have an equal number of smokers and non-smokers. 
+## Participants had to be between 16 and 25 to participate. The variables collected were:
+
+### 1. Smoking behaviour (Are you a smoker? Yes or no)
+### 2. Depression score (range is 0 to 29)
+### 3. Sex (male or female)
+### 4. Age at the time of survey (range is 16 to 25)
+### 5. Family history of depression (yes or no)
+
+
+## STEP 1: Create variables.----
+## I will walk you through creating two variables first, then you can do the rest on your own. 
+## Let's start with smoking behaviour. We know that this is a binary variable (yes or no). We will code 1 = yes and 0 = no. 
+## Because we are making stuff up, we can use some basic R funtions to create this variable:
+
+smoking <- rep(0:1, each=10)
+
+## Above I used the function rep(). This function is used if you want to repeat (rep) values. 
+## In the above code, I am telling R to repeat the values 0 and 1 and for each of these values, repeat them 10 times. 
+## When you call the variable smoking, this is what it will look like:
+
+smoking
+ [1] 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1
+
+## Okay, now I will walk you through doing something similar for a continuous variable because this requires a different function. 
+## Again, we are making things up, so we can use the sample() function to create the depression variable. 
+## We will draw a sample of values within the range indicated above for this variable.
+
+dep <- sample(0:29,20)
+
+## The sample() function is used if you want to sample some values from a given interval. 
+## In the above code, I am telling R to draw a sample of values between 0 and 29, 20 times. 
+## When we call this variable, the output is as follows (note, you will get different values!):
+
+dep
+ [1]  2  7 28 15 11 26 22 23  0 29 21  1 17  6 20 13  9  3 25 10
+
+## Your turn! You should be able to make the remaining variables using sample(). 
+## Make sure that you have 20 units per variable as you only have 20 participants! Also, keep in mind that for the binary variables, you can use rep() if you want them to have equal groups. 
+## For uneuqal groups, use sample(). 
+
+#### TROUBLESHOOTING #####################################################################################################
+# Note that if you try to use sample for a range of numbers that is less than your sample size, R will throw this error:
+#
+#Error in sample.int(length(x), size, replace, prob) : 
+#  cannot take a sample larger than the population when 'replace = FALSE'
+#
+# Have no fear! You just have to add replace=TRUE at the end of the sample() function and it should work fine :)
+#########################################################################################################################
+
+## BONUS: Uh oh, you probably want some column in your dataframe called ID. So you need to create a variable that has a sequence running from 1 to 20. 
+## Here's how to do it:
+id <- seq(1:20)
+## The above code creates a variable "id", and assigns to that variable a sequence (seq) that ranges from 1 to 20 (1:20).
+
+## NOTE: This is not usually how you would enter data. If you actually wanted to enter real data directly into R you would do something like this:
+id <- seq(1:20)
+dep <- c(6,20,21,23,5,...)
+age <- c(19,18,25,20,16,...)
+sex <- c(1,1,0,1,0,...)
+famdep <- c(0,0,1,1,1,...)
+
+## Or, honestly, just enter it into excel. Entering data like this is messy and prone to errors as far as I'm concerned. Moving on. 
+
+## STEP 2: Merge your newly made variables into a dataframe! ----
+## Congrats, you made a bunch of variables. You will see these variables in your Environment window under "Values". 
+## Now let's combine these variables into a dataframe (or dataset) using a new function called cbind.data.frame(). 
+## cbind() is it's own function (the "c" stands for column), which you can use. However, the resulting matrix of variables will not register as a dataframe. 
+## By using cbind.data.frame() not only will this bind you variables as columns, but it will also convert it into a dataframe. 
+## Do a quick google if you want to see examples of how to do this in dplyr.
+
+## The way the function cbind.data.frame() syntax works is:
+
+dataframe <- cbind.data.frame(variable1, variable2, variable3, ...)
+
+## Give it a try! Choose a meaningful but short name for your dataframe and assign to that dataframe the variables you created.
+
+
+## Here is what mine looks like:
+smokingdf
+   id smoking dep sex age famdep
+1   1       0   2   1  18      0
+2   2       0   7   0  16      0
+3   3       0  28   1  16      0
+4   4       0  15   1  23      0
+5   5       0  11   1  23      1
+6   6       0  26   1  25      1
+7   7       0  22   0  20      1
+8   8       0  23   1  24      1
+9   9       0   0   1  18      1
+10 10       0  29   0  22      1
+11 11       1  21   1  23      1
+12 12       1   1   0  16      0
+13 13       1  17   0  19      1
+14 14       1   6   0  23      0
+15 15       1  20   0  22      0
+16 16       1  13   0  20      0
+17 17       1   9   1  19      1
+18 18       1   3   1  25      1
+19 19       1  25   1  22      0
+20 20       1  10   0  23      0
+
+## If you are successful, you will see your dataframe appear in your environment under "Data".
+## If you want, you can clean up your environment by removing the variables you created because they are now stored in a dataframe. Use the rm() function to do so.
+
+## STEP 3: Format variables ----
+## Before we summarize, you'll want to make sure your variables are formatted correctly. 
+## Take a look at previous lessons on how to do this and input the code below!
+
+## STEP 4: Summarize ----
+## You learned a few functions to help you summarize your data. Applying your knowledge for the following:
+### a. Provide the mean, variance, and standard deviation for continuous variables.
+### b. Provide the range, median, and interquartile range for the continuous variables.
+### d. Provide the mean and standard deviation of depression scores by smoking group, sex, and then family history of depression.
+## Hint: If you are not sure how to answer these questions, google it! I promise that the answer will be there. 
+
+### STEP 5: Visualize ----
+## Reviewing your visualization lesson:
+### a. Create a plot for each variable in your dataset. 
+### b. Create a plot that looks at depression scores by smoking group.
+### c. Create a plot that looks at depression scores by family history of depression.
+### d. Create a plot that looks at depression scores by sex.
+### e. Create a plot that looks at depression scores by age.
+## Hint: You can do the above using ggplot(), or base R. Again, do some googling if you get stuck!
+
+### STEP 6. Interpret ----
+## Based on the visualizations above, interpret the relationship between smoking and depression. 
+
+
+## BEYOND R: BONUS QUESTIONS!----
+## Of course, this is a made up example. However, you may run into some similar study designs or have to create similar descriptive results. Here are some questions for your own reflection:
+## 1. What are confounding variables? Based on your description above, does family history, sex, and/or age meet this definition? 
+## 2. Consider the study design, how the variables were definined, and sample size. Can we draw strong conclusions about the relationship between smoking and depression?
+## 3. In what ways could this study be improved?
+
+## Final note: Descriptives like the ones above are the foundation for your statistical modeling. Keep these functions in mind as you will come across them frequently in your work :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
