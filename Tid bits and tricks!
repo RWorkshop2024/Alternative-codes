@@ -27,7 +27,13 @@ HoT KeYz:
 | : or
 != : not
 
-5. Specific codes that might be useful
+5. Trying new things out
+You will inevitably come across moments where you will need to try out some code. This can be scary, especially when you are knees deep in a huge amount of script.
+Try out the code on a test dataset! What I mean is copy the dataset you're working with on something called "test". That way if you made a mistake or
+the code doesn't work, you can always go back to your original dataset- none of the changes you made to test will be permanent.
+If the code works, you can then repeat the code with the dataset you want without fear of making permanent errors!
+
+6. Specific codes that might be useful
   Here are some small bits of code that might help you out for specific scenarios. I'll likely add to this list as we come up against some issues.
 
 Reseting rownames---
